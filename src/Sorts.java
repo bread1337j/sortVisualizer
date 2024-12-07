@@ -85,15 +85,16 @@ public class Sorts{
                 while(index >= 0 && data.get(index) > num){
                     data.set(index + 1, data.get(index)); //shift array to the right
                     index-=1;
-                    if(screen!=null){
 
-                        count++;
-                        if(count%countfactor==0) {
-                            screen.pn.repaint();
-                            try {
-                                TimeUnit.NANOSECONDS.sleep(timeouttime);
-                            } catch (InterruptedException ignored) {
-                            }
+                }
+                if(screen!=null){
+
+                    count++;
+                    if(count%countfactor==0) {
+                        screen.pn.repaint();
+                        try {
+                            TimeUnit.NANOSECONDS.sleep(timeouttime);
+                        } catch (InterruptedException ignored) {
                         }
                     }
                 }
