@@ -13,8 +13,9 @@ public class Main {
         window.makeVisible();
         SplittableRandom rand = new SplittableRandom();
         window.clearArr(window.arr.size());
-        for(int i=0; i<Math.pow(10, 4)*4 ; i++){
-            window.addVal(rand.nextDouble()*250000);
+
+        for(int i=0; i<Math.pow(10, 2)*1 ; i++){
+            window.addVal(rand.nextInt(25000000));
 
             //window.pn.repaint();
             try {
@@ -25,14 +26,17 @@ public class Main {
         window.init = false;
         System.out.println("aAA");
         Sorts.screen = window;
+
         Sorts.bubblesort(window.arr);
+
         System.out.println("a");
         window.pn.repaint();
+        window.keyPressed = false;
+        window.pn.repaint();
         while(!window.keyPressed()){System.out.println(window.keyPressed());}
-
         //2
         window.clearArr(window.arr.size());
-        for(int i=0; i<Math.pow(10, 5)*1; i++){
+        for(int i=0; i<Math.pow(10, 3)*1; i++){
             window.addVal(rand.nextDouble()*25000);
 
             //window.pn.repaint();
@@ -45,16 +49,19 @@ public class Main {
         window.init = false;
         System.out.println("aAA");
         Sorts.screen = window;
+
         Sorts.selectionsort(window.arr);
+
         System.out.println("a");
         window.pn.repaint();
+        window.keyPressed = false;
         while(!window.keyPressed()){System.out.println(window.keyPressed());}
 
 
         //3
 
         window.clearArr(window.arr.size());
-        for(int i=0; i<Math.pow(10, 5)*1; i++){
+        for(int i=0; i<Math.pow(10, 3)*4; i++){
             window.addVal(rand.nextDouble()*25000);
 
             //window.pn.repaint();
@@ -67,7 +74,9 @@ public class Main {
         window.init = false;
         System.out.println("aAA");
         Sorts.screen = window;
+
         Sorts.insertionsort(window.arr);
+
         System.out.println("a");
         window.pn.repaint();
 

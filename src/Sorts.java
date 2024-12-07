@@ -5,8 +5,8 @@ import java.util.concurrent.TimeUnit;
 public class Sorts{
     public static Window screen = null;
     private static int count = 0;
-    private static final int countfactor = 5;
-    private static final int timeouttime = 0;
+    private static final int countfactor = 4;
+    private static final int timeouttime = 1;
     public static void bubblesort(List<Double> data){
         boolean FLAG = false;
 
@@ -25,6 +25,7 @@ public class Sorts{
 
                         count++;
                         if(count%countfactor==0) {
+                            screen.pointer = j;
                             screen.pn.repaint();
                             try {
                                 TimeUnit.NANOSECONDS.sleep(timeouttime);
@@ -40,6 +41,12 @@ public class Sorts{
                 return;
             }
 
+        }
+        if(screen!=null){
+            screen.pn.repaint();
+            try {
+                TimeUnit.NANOSECONDS.sleep(timeouttime);
+            } catch (InterruptedException ignored) {}
         }
     }
 
@@ -60,6 +67,7 @@ public class Sorts{
             if(screen!=null){
                 count++;
                 if(count%countfactor==0) {
+                    screen.pointer = i;
                     screen.pn.repaint();
                     try {
                         TimeUnit.NANOSECONDS.sleep(timeouttime);
@@ -86,11 +94,24 @@ public class Sorts{
                     data.set(index + 1, data.get(index)); //shift array to the right
                     index-=1;
 
+                    if(screen!=null){
+
+                        count++;
+                        if(count%countfactor==0) {
+                            screen.pointer = index;
+                            screen.pn.repaint();
+                            try {
+                                TimeUnit.NANOSECONDS.sleep(timeouttime);
+                            } catch (InterruptedException ignored) {
+                            }
+                        }
+                    }
                 }
                 if(screen!=null){
 
                     count++;
                     if(count%countfactor==0) {
+                        screen.pointer = i;
                         screen.pn.repaint();
                         try {
                             TimeUnit.NANOSECONDS.sleep(timeouttime);

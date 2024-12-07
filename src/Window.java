@@ -15,6 +15,8 @@ public class Window extends JPanel {
     public List<Double> arr = new ArrayList<>(); //IT NEEDS TO BE PUBLIC OK THIS IS A VITAL FEATURE
     public List<Double> arrcache = new ArrayList<>();
     int size = 0;
+    public int pointer;
+    int pointercache;
     double max = 0.01;
     public boolean keyPressed = false;
     public boolean init = true;
@@ -24,7 +26,7 @@ public class Window extends JPanel {
         @Override
         public void paintComponent(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
-
+            double width = (double) getWidth() / (double) size;
             if(init) {
                 g.setColor(Color.WHITE);
                 g.fillRect(0, 0, getWidth(), getHeight());
@@ -32,7 +34,6 @@ public class Window extends JPanel {
 
 
                 if (size > 0) {
-                    double width = (double) getWidth() / (double) size;
 
                     for (int i = 0; i < arr.size(); i++) {
                         Rectangle2D rect = new Rectangle2D.Double(i * width, getHeight() - getHeight() * arr.get(i) / max, width, getHeight() * arr.get(i) / max);
@@ -42,18 +43,26 @@ public class Window extends JPanel {
                 //init = false;
             }else{
                 if (size > 0) {
-                    double width = (double) getWidth() / (double) size;
+
 
                     for (int i = 0; i < arr.size(); i++) {
                         if(arrcache.size()<arr.size()){syncArr();}
-                        if(arrcache.get(i) != arr.get(i)) {
+                        if(arrcache.get(i) != arr.get(i) || i==pointercache) {
                             g2d.setColor(Color.WHITE);
                             Rectangle2D clear = new Rectangle2D.Double(i*width, 0, width, getHeight());
                             g2d.fill(clear);
                             g2d.setColor(Color.BLACK);
                             Rectangle2D rect = new Rectangle2D.Double(i * width, getHeight() - getHeight() * arr.get(i) / max, width, getHeight() * arr.get(i) / max);
                             g2d.fill(rect);
+
+
                         }
+                    }
+                    if(pointer > 0 && pointer < arr.size()) {//pointer can be disabled by setting to -1
+                        g2d.setColor(Color.RED);
+                        Rectangle2D cursor = new Rectangle2D.Double(pointer * width, 0, width, getHeight());
+                        g2d.fill(cursor);
+                        pointercache = pointer;
                     }
                 }
             }
