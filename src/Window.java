@@ -70,6 +70,7 @@ public class Window extends JPanel {
     public void clearArr(int n){
         arr = new ArrayList<>();
         size = 0;
+        max = 0.01;
     }
 
 }
