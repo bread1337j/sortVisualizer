@@ -22,18 +22,17 @@ public class Main {
             }catch(InterruptedException ignored){}
         }
         while(!window.keyPressed()){System.out.println(window.keyPressed());}
+        window.init = false;
         System.out.println("aAA");
         Sorts.screen = window;
         Sorts.bubblesort(window.arr);
         System.out.println("a");
         window.pn.repaint();
-        window.keyPressed = false;
         while(!window.keyPressed()){System.out.println(window.keyPressed());}
 
         //2
-        window.keyPressed = false;
         window.clearArr(window.arr.size());
-        for(int i=0; i<Math.pow(10, 4)*4; i++){
+        for(int i=0; i<Math.pow(10, 5)*1; i++){
             window.addVal(rand.nextDouble()*25000);
 
             //window.pn.repaint();
@@ -43,20 +42,19 @@ public class Main {
         }
         window.pn.repaint();
         while(!window.keyPressed()){System.out.println(window.keyPressed());}
+        window.init = false;
         System.out.println("aAA");
         Sorts.screen = window;
         Sorts.selectionsort(window.arr);
         System.out.println("a");
         window.pn.repaint();
-        window.keyPressed = false;
         while(!window.keyPressed()){System.out.println(window.keyPressed());}
 
 
         //3
 
-        window.keyPressed = false;
         window.clearArr(window.arr.size());
-        for(int i=0; i<Math.pow(10, 4)*4; i++){
+        for(int i=0; i<Math.pow(10, 5)*1; i++){
             window.addVal(rand.nextDouble()*25000);
 
             //window.pn.repaint();
@@ -66,6 +64,7 @@ public class Main {
         }
         window.pn.repaint();
         while(!window.keyPressed()){System.out.println(window.keyPressed());}
+        window.init = false;
         System.out.println("aAA");
         Sorts.screen = window;
         Sorts.insertionsort(window.arr);

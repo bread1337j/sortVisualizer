@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 public class Sorts{
     public static Window screen = null;
     private static int count = 0;
-    private static final int countfactor = 100;
+    private static final int countfactor = 5;
     private static final int timeouttime = 0;
     public static void bubblesort(List<Double> data){
         boolean FLAG = false;

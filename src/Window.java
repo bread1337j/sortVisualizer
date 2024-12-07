@@ -13,24 +13,48 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Window extends JPanel {
     public List<Double> arr = new ArrayList<>(); //IT NEEDS TO BE PUBLIC OK THIS IS A VITAL FEATURE
+    public List<Double> arrcache = new ArrayList<>();
     int size = 0;
     double max = 0.01;
     public boolean keyPressed = false;
+    public boolean init = true;
     public Window(){}
     SplittableRandom rand = new SplittableRandom();
     JPanel pn = new JPanel(){
         @Override
         public void paintComponent(Graphics g) {
-            g.setColor(Color.WHITE);
-            g.fillRect(0, 0, getWidth(), getHeight());
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setColor(new Color(0,0,0));
-            if(size>0) {
-                double width = (double)getWidth() / (double)size;
 
-                for(int i=0; i<arr.size(); i++){
-                    Rectangle2D rect = new Rectangle2D.Double(i*width, getHeight()-getHeight()*arr.get(i)/max, width,  getHeight()*arr.get(i) / max);
-                    g2d.fill(rect);
+            if(init) {
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, getWidth(), getHeight());
+                g2d.setColor(new Color(0, 0, 0));
+
+
+                if (size > 0) {
+                    double width = (double) getWidth() / (double) size;
+
+                    for (int i = 0; i < arr.size(); i++) {
+                        Rectangle2D rect = new Rectangle2D.Double(i * width, getHeight() - getHeight() * arr.get(i) / max, width, getHeight() * arr.get(i) / max);
+                        g2d.fill(rect);
+                    }
+                }
+                //init = false;
+            }else{
+                if (size > 0) {
+                    double width = (double) getWidth() / (double) size;
+
+                    for (int i = 0; i < arr.size(); i++) {
+                        if(arrcache.size()<arr.size()){syncArr();}
+                        if(arrcache.get(i) != arr.get(i)) {
+                            g2d.setColor(Color.WHITE);
+                            Rectangle2D clear = new Rectangle2D.Double(i*width, 0, width, getHeight());
+                            g2d.fill(clear);
+                            g2d.setColor(Color.BLACK);
+                            Rectangle2D rect = new Rectangle2D.Double(i * width, getHeight() - getHeight() * arr.get(i) / max, width, getHeight() * arr.get(i) / max);
+                            g2d.fill(rect);
+                        }
+                    }
                 }
             }
 
@@ -67,10 +91,15 @@ public class Window extends JPanel {
             max = val;
         }
     }
+    public void syncArr(){
+        arrcache = new ArrayList<>(arr);
+    }
     public void clearArr(int n){
-        arr = new ArrayList<>();
+        arr = new ArrayList<>(n);
         size = 0;
         max = 0.01;
+        init = true;
+        keyPressed = false;
     }
 
 }
