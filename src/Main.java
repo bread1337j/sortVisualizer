@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.SplittableRandom;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class Main {
 
@@ -27,14 +28,19 @@ public class Main {
         System.out.println("aAA");
         Sorts.screen = window;
 
-        Sorts.bubblesort(window.arr);
+        Sorts.chimpsort(window.arr);
 
         System.out.println("a");
         window.pn.repaint();
         window.keyPressed = false;
+        try{
+            TimeUnit.MILLISECONDS.sleep(100);
+        }catch(InterruptedException ignored){}
+        window.init = true;
         window.pn.repaint();
         while(!window.keyPressed()){System.out.println(window.keyPressed());}
         //2
+        /*
         window.clearArr(window.arr.size());
         for(int i=0; i<Math.pow(10, 3)*1; i++){
             window.addVal(rand.nextDouble()*25000);
@@ -61,7 +67,7 @@ public class Main {
         //3
 
         window.clearArr(window.arr.size());
-        for(int i=0; i<Math.pow(10, 3)*4; i++){
+        for(int i=0; i<Math.pow(10, 5)*7; i++){
             window.addVal(rand.nextDouble()*25000);
 
             //window.pn.repaint();
@@ -78,8 +84,7 @@ public class Main {
         Sorts.insertionsort(window.arr);
 
         System.out.println("a");
-        window.pn.repaint();
-
+        window.pn.repaint();*/
     }
 
 }

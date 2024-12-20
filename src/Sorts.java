@@ -1,12 +1,47 @@
-import java.awt.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Sorts{
     public static Window screen = null;
     private static int count = 0;
-    private static final int countfactor = 4;
-    private static final int timeouttime = 1;
+    private static final int countfactor = 1;
+    private static final int timeouttime = 1000000;
+    private static void swap(List<Double> data, int one, int two) {
+        double tmp = data.get(one);
+        data.set(one, data.get(two));
+        data.set(two, tmp);
+    }
+
+
+    public static void chimpsort(List<Double> data){
+        int end = data.size() - 1;
+        boolean flag = true;
+
+        while (flag){
+            flag = false; // so that after starting you have to check if something got swapped
+            for (int i = 0; i < end; i++){
+                if (data.get(i) > data.get(i + 1)){ // swap?
+                    if(screen!=null){
+
+                        count++;
+                        if(count%countfactor==0) {
+                            screen.pointer = i;
+                            screen.pn.repaint();
+                            try {
+                                TimeUnit.NANOSECONDS.sleep(timeouttime);
+                            } catch (InterruptedException ignored) {
+                            }
+                        }
+                    }
+                    Double temp = data.get(i + 1);
+                    data.set(i + 1, data.get(i));
+                    data.set(i, temp);
+                    flag = true; // there was a swap
+                }
+            }
+            end--;
+        }
+    }
     public static void bubblesort(List<Double> data){
         boolean FLAG = false;
 
@@ -84,7 +119,7 @@ public class Sorts{
     }
 
     /*Do not implement until directions are posted*/
-    public static void insertionsort(List<Double> data){
+    /*public static void insertionsort(List<Double> data){
         if(data.size() < 2){return;}
         for(int i=1; i<data.size(); i++){
             if(data.get(i) < data.get(i - 1)){
@@ -133,6 +168,50 @@ public class Sorts{
                     }
                 }
             }
+
+
         }
+
+
     }
+    */
+
+    public static void insertionsort(List<Double> data) {
+        for (int i = 1; i<data.size(); i++) {
+            for (int j = i-1; j>=0; j--) {
+                if (data.get(j + 1) < data.get(j)) {
+                    swap(data, j+1, j);
+                    if(screen!=null){
+
+                        count++;
+                        if(count%countfactor==0) {
+                            screen.pointer = j;
+                            screen.pn.repaint();
+                            try {
+                                TimeUnit.NANOSECONDS.sleep(timeouttime);
+                            } catch (InterruptedException ignored) {
+                            }
+                        }
+                    }
+
+                } else break;
+            }
+            if(screen!=null){
+
+                count++;
+                if(count%countfactor==0) {
+                    screen.pointer = i;
+                    screen.pn.repaint();
+                    try {
+                        TimeUnit.NANOSECONDS.sleep(timeouttime);
+                    } catch (InterruptedException ignored) {
+                    }
+                }
+            }
+
+
+        }
+
+    }
+
 }
