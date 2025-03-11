@@ -1,115 +1,92 @@
+import java.util.Arrays;
 import java.util.List;
+import java.util.SplittableRandom;
 import java.util.concurrent.TimeUnit;
-import java.util.*;
 
 public class Sorts{
     public static Window screen = null;
     private static int count = 0;
-    private static final int countfactor = 100;
-    private static final int timeouttime = 10000;
-	private static final boolean DEBUG = false;
-	private static SplittableRandom rand = new SplittableRandom();
-	private static void swap(List<Double> data, int one, int two) {
+    private static final int countfactor = 10;
+    private static final int timeouttime = 10000000;
+    private static SplittableRandom rand = new SplittableRandom();
+
+
+    private static void draw(int i){
+        if(screen!=null){
+
+            count++;
+            if(count%countfactor==0) {
+                screen.pointer = i;
+                screen.pn.repaint();
+                try {
+                    TimeUnit.NANOSECONDS.sleep(timeouttime);
+                } catch (InterruptedException ignored) {
+                }
+            }
+        }
+    }
+
+    private static void swap(List<Double> data, int one, int two) {
         double tmp = data.get(one);
         data.set(one, data.get(two));
         data.set(two, tmp);
     }
-	
-	public static int partition(List<Double> arr, int lo, int hi) {
-		int p, q;
-		int c = 0;
-		int pivot = rand.nextInt(Math.max(hi - lo, 1)) + lo;
-		double temp = arr.get(hi);
-		arr.set(hi, arr.get(pivot));
-		arr.set(pivot, temp);
-		pivot = hi; //throw this stupid thing to the end of the array so I dont have to worry about it jstgrf phfhkigikf
-		double val = arr.get(pivot);
-
-		p = lo;
-		q = hi;
-		int AAAAAAAAAA = lo; //A stands for Anguish
-
-
-		while(p<hi){
-				if(screen!=null){
-					count++;
-					if(count%countfactor==0) {
-						screen.pointer = p;
-						screen.pn.repaint();
-						try {
-							TimeUnit.NANOSECONDS.sleep(timeouttime);
-						} catch (InterruptedException ignored) {
-						}
-					}
-				}
-			if(p==pivot){
-				continue;
-			}else{
-				if (arr.get(p) < val) {
-
-					swap(arr, p, AAAAAAAAAA);	
-					AAAAAAAAAA++;
-				}
-				else {
-					//equal
-					if (c++ % 2 == 0) {
-					} else {
-						swap(arr, p, AAAAAAAAAA);	
-						AAAAAAAAAA++;
-					}
-				}
-				p++;
-			}
-		}
+    public static void quickSort(List<Double> arr){
+        quickSortWrap(arr, 0, arr.size()-1);
+    }
+    public static void quickSortWrap(List<Double> arr, int lo, int hi){
+        if(!(lo>=hi)) {
+            int v = partition(arr, lo, hi);
+            quickSortWrap(arr, lo, v);
+            //System.out.println("AJSLKFHNAFKJAFS");
+            draw(v);
+            quickSortWrap(arr, v+1, hi);
+            draw(v);
+        }
+    }
+    public static int partition(List<Double> arr, int lo, int hi) {
+        int p, q;
+        int c = 0;
+        int pivot = rand.nextInt(Math.max(hi - lo, 1)) + lo;
+        Double val = arr.get(pivot);
+        swap(arr, hi, pivot); //throw this stupid thing to the end of the array so I dont have to worry about it jstgrf phfhkigikf
 
 
-			//for(int i=q; i<arr.length; i--){
-			//	if(arr[i] == val){
-			//		return i; //?????????????????????
-			//	}
-			//}
-			//return -1;
+        p = lo;
+        q = hi;
+        int AAAAAAAAAA = lo; //A stands for Anguish
 
-			swap(arr, hi, AAAAAAAAAA);	
-			if(screen!=null){
-					count++;
-					if(count%countfactor==0) {
-						screen.pointer = p;
-						screen.pn.repaint();
-						try {
-							TimeUnit.NANOSECONDS.sleep(timeouttime);
-						} catch (InterruptedException ignored) {
-						}
-					}
-				}
-		return AAAAAAAAAA;
-	}
-	
 
-	public static void quickSort(List<Double> data){
-		quickSortWrap(data, 0, data.size()-1);
-		quickSortWrap(data, 0, data.size()-1);
-	}
-	public static void quickSortWrap(List<Double> data, int lo, int hi){
-		if(lo>=hi){
-			return;
-		}
-		int v = partition(data, lo, hi);
-		if(screen!=null){
-					count++;
-					if(count%countfactor==0) {
-						screen.pointer = v;
-						screen.pn.repaint();
-						try {
-							TimeUnit.NANOSECONDS.sleep(timeouttime);
-						} catch (InterruptedException ignored) {
-						}
-					}
-				}
-		quickSortWrap(data, lo, v);
-		quickSortWrap(data, v+1, hi);
-	}
+        while(p<hi){
+            draw(p);
+                if(arr.get(p) > val){
+                    //do nothing lmao
+                }else if (arr.get(p) < val) {
+                    swap(arr, p, AAAAAAAAAA);
+                    AAAAAAAAAA++;
+                }
+                else {
+                    //equal
+                    if (c++ % 2 == 1) {
+                        swap(arr, p, AAAAAAAAAA);
+                        AAAAAAAAAA++;
+                    }
+                }
+            p++;
+        }
 
+
+        //for(int i=q; i<arr.length; i--){
+        //	if(arr[i] == val){
+        //		return i; //?????????????????????
+        //	}
+        //}
+        //return -1;
+
+        swap(arr, hi, AAAAAAAAAA);
+
+        return AAAAAAAAAA;
+    }
     public static void chimpsort(List<Double> data){
         int end = data.size() - 1;
         boolean flag = true;
