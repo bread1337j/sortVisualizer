@@ -6,10 +6,10 @@ import java.util.concurrent.TimeUnit;
 public class Sorts{
     public static Window screen = null;
     private static int count = 0;
-    private static final int countfactor = 10;
-    private static final int timeouttime = 10000000;
+    private static final int countfactor = 1;
+    private static final int timeouttime = 15000;
     private static SplittableRandom rand = new SplittableRandom();
-
+    private static final int resetfactor = 500;
 
     private static void draw(int i){
         if(screen!=null){
@@ -23,13 +23,20 @@ public class Sorts{
                 } catch (InterruptedException ignored) {
                 }
             }
+            if(count%resetfactor==0) {
+                screen.init = true;
+                draw(i); //recursion straight out of ohio
+                screen.init = false;
+            }
         }
     }
 
     private static void swap(List<Double> data, int one, int two) {
+        draw(one);
         double tmp = data.get(one);
         data.set(one, data.get(two));
         data.set(two, tmp);
+        draw(two);
     }
     public static void quickSort(List<Double> arr){
         quickSortWrap(arr, 0, arr.size()-1);

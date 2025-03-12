@@ -15,7 +15,7 @@ public class Main {
         SplittableRandom rand = new SplittableRandom();
         window.clearArr(window.arr.size());
 
-        for(int i=0; i<Math.pow(10, 3)*1 ; i++){
+        for(int i=0; i<Math.pow(10, 3)*3 ; i++){
             window.addVal(rand.nextInt(25000000));
 
             //window.pn.repaint();
